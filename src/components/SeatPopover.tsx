@@ -23,7 +23,7 @@ function SeatPopover() {
     const bookingResponseObject = { seats, date, time, movieId: id };
     try {
       const { data } = await axios.post(
-        `http://localhost:8000/api/1.0/booking`,
+        `${import.meta.env.VITE_SERVER_URL}/api/1.0/booking`,
         bookingResponseObject,
         { withCredentials: true }
       );

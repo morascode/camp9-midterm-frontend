@@ -12,7 +12,7 @@ type SignupResponse = {
 
 async function signupUser(user: SignupUser) {
   const { data } = await axios.post(
-    `http://localhost:8000/api/1.0/user/signup`,
+    `${import.meta.env.VITE_SERVER_URL}/api/1.0/user/signup`,
     user,
     { withCredentials: true }
   );
@@ -35,7 +35,7 @@ type LoginResponse = { token: string };
 
 async function loginUser(user: LoginUser) {
   const { data } = await axios.post<LoginResponse>(
-    `http://localhost:8000/api/1.0/user/login`,
+    `${import.meta.env.VITE_SERVER_URL}/api/1.0/user/login`,
     user,
     { withCredentials: true }
   );
@@ -61,7 +61,7 @@ async function logoutUser() {
   // Make a request to logout endpoint
   try {
     const { data } = await axios.delete(
-      `http://localhost:8000/api/1.0/user/logout`,
+      `${import.meta.env.VITE_SERVER_URL}/api/1.0/user/logout`,
       { withCredentials: true }
     );
     return data;
@@ -83,7 +83,7 @@ export function useLogoutMutation() {
 
 async function checkAuth() {
   const { data } = await axios.get(
-    `http://localhost:8000/api/1.0/user/checkauth`,
+    `${import.meta.env.VITE_SERVER_URL}/api/1.0/user/checkauth`,
     { withCredentials: true }
   );
   return data;
