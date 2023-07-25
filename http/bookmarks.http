@@ -1,0 +1,34 @@
+GET http://localhost:8000/api/1.0/user/checkauth HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMzQwY2Y0NC1lNjY0LTQ0OGItOWYyYy1kMDIxY2I1ZDMwOTIiLCJpYXQiOjE2ODM4MDQ0NDcsImV4cCI6MTY4MzgwODA0N30.a5aIiA3IPIiG8lKs7BmzKrXWaBF4WwF8P1huLn07hCw;
+
+### 
+GET http://localhost:8000/api/1.0/user/bookmarks HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyYTQyMzNiYy02Yzg1LTRmN2UtYjQyZS1kODkyYjUxYTY2ZWQiLCJpYXQiOjE2ODQxMzgxNTEsImV4cCI6MTY4NDE0MTc1MX0.5AMXpfWc8Ul95vpgOmu-6mr1BgztEesU3WS8L5WnJ5c;
+
+### 
+POST http://localhost:8000/api/1.0/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "echo@goo.com",
+    "password": "echogoo"
+}
+
+###
+POST http://localhost:8000/api/1.0/user/bookmarks/447365 HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMzQwY2Y0NC1lNjY0LTQ0OGItOWYyYy1kMDIxY2I1ZDMwOTIiLCJpYXQiOjE2ODM4NzYxMTQsImV4cCI6MTY4Mzg3OTcxNH0.C4IomMtFNQTZkk7hwj63FCzfdn2yguQdye0kE-wY4Vk;
+
+###
+
+DELETE http://localhost:8000/api/1.0/user/bookmarks/447365 HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMzQwY2Y0NC1lNjY0LTQ0OGItOWYyYy1kMDIxY2I1ZDMwOTIiLCJpYXQiOjE2ODM4NzYxMTQsImV4cCI6MTY4Mzg3OTcxNH0.C4IomMtFNQTZkk7hwj63FCzfdn2yguQdye0kE-wY4Vk;
+
+###
+
+PATCH http://localhost:8000/api/1.0/user/bookmarks/447365 HTTP/1.1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMzQwY2Y0NC1lNjY0LTQ0OGItOWYyYy1kMDIxY2I1ZDMwOTIiLCJpYXQiOjE2ODM4ODA0MjcsImV4cCI6MTY4Mzg4NDAyN30.QjGz5U9vJdMq6LCMS1icjgOLQjkEcvpr6DexFknNblw;
+content-type: application/json
+
+{
+    "createBookmark": false
+}
