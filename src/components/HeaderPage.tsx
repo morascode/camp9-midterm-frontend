@@ -29,7 +29,9 @@ function HeaderPage(props: Props) {
             }}
             className={
               `w-full transition-colors duration-500 ` +
-              (props.isLiked ? `text-red` : `stroke-red text-transparent`)
+              (props.isLiked
+                ? `stroke-transparent text-red`
+                : `stroke-red text-transparent`)
             }
           >
             <HeartIcon></HeartIcon>

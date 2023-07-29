@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import {
   FilmIcon,
+  HeartIcon,
   HomeIcon,
   QueueListIcon,
   UserIcon,
@@ -10,6 +11,7 @@ import { NavLink } from 'react-router-dom';
 import { useEffect } from 'react';
 import UseAnimations from 'react-useanimations';
 import loading from 'react-useanimations/lib/loading';
+import { HomeIcon as HomeIconOutline } from '@heroicons/react/24/outline';
 
 function NavigationLayout() {
   const navigate = useNavigate();
@@ -42,26 +44,26 @@ function NavigationLayout() {
       </main>
       <footer className="w-full fixed -bottom-2">
         <div className="h-4 w-full bg-gradient-to-t from-dark relative top-1"></div>
-        <nav className="pt-8 pb-10 px-16 text-white-dimmed  bg-dark dark:text-dark dark:bg-white-dimmed">
+        <nav className="pt-8 pb-10 px-14 text-white-dimmed bg-dark dark:text-dark dark:bg-white-dimmed">
           <ul className="flex flex-row justify-between max-w-xs m-auto ">
             <li>
-              <NavLink to="/">
-                <HomeIcon className="w-6 dark:fill-dark-light" />
+              <NavLink to="/" className="w-7 dark:fill-dark-light">
+                <HomeIcon className="w-fit" />
               </NavLink>
             </li>
             <li>
               <NavLink to="/movies">
-                <FilmIcon className="w-6 dark:fill-dark-light" />
+                <FilmIcon className="w-7 dark:fill-dark-light" />
               </NavLink>
             </li>
             <li>
               <NavLink to="/bookmarks">
-                <QueueListIcon className="w-6 dark:fill-dark-light" />
+                <HeartIcon className="w-7 dark:fill-dark-light" />
               </NavLink>
             </li>
             <li>
               <NavLink to="/accountpage">
-                <UserIcon className="w-6 dark:fill-dark-light" />
+                <UserIcon className="w-7 dark:fill-dark-light" />
               </NavLink>
             </li>
           </ul>
