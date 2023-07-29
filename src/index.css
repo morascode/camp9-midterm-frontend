@@ -107,9 +107,10 @@
     line-height: 15px;
     @apply text-white-dimmed;
   }
-  /* ========================================
- * end of file
- * ======================================= */
+  /* removes the blue square highlight on link/button click  */
+  .no_highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
   @layer utilities {
     .sbar:focus-within {
       outline: #5e5f66 auto 0.125rem;
@@ -120,3 +121,7 @@
     }
   }
 }
+
+/* ========================================
+ * end of file
+ * ======================================= */

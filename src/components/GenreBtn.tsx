@@ -17,7 +17,7 @@ function GenreBtn(props: Props) {
       onClick={() => {
         toggleGenre(props.id);
       }}
-      className="flex flex-col justify-center items-center gap-2 cursor-pointer"
+      className="flex flex-col justify-center items-center gap-2 cursor-pointer no_highlight"
     >
       <div
         className={clsx(
@@ -29,7 +29,9 @@ function GenreBtn(props: Props) {
       >
         {props.emojie}
       </div>
-      <p className="text-white-dimmed typography-secondary dark:text-dark">{props.genre}</p>
+      <p className="text-white-dimmed typography-secondary dark:text-dark">
+        {props.genre}
+      </p>
     </div>
   );
 }

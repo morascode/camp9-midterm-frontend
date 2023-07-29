@@ -21,7 +21,7 @@ function HeaderPage(props: Props) {
       {/* the title of the page */}
       <h1 className="typography-title dark:text-dark">{props.children}</h1>
       {/* the heart icon, visible if the hasHeartButton={true} prop is passed, can call the callback function on click if one is passed as the onHeartButtonClick prop */}
-      <div className="w-5 h-5">
+      <div className="w-5 h-5 no_highlight">
         {props.hasHeartButton && (
           <button
             onClick={() => {
@@ -34,7 +34,7 @@ function HeaderPage(props: Props) {
                 : `stroke-red text-transparent`)
             }
           >
-            <HeartIcon></HeartIcon>
+            <HeartIcon />
           </button>
         )}
       </div>

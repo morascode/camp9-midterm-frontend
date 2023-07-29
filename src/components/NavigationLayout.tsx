@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import UseAnimations from 'react-useanimations';
 import loading from 'react-useanimations/lib/loading';
 import { HomeIcon as HomeIconOutline } from '@heroicons/react/24/outline';
+import NavigationButton from './NavigationButton';
 
 function NavigationLayout() {
   const navigate = useNavigate();
@@ -47,24 +48,16 @@ function NavigationLayout() {
         <nav className="pt-8 pb-10 px-14 text-white-dimmed bg-dark dark:text-dark dark:bg-white-dimmed">
           <ul className="flex flex-row justify-between max-w-xs m-auto ">
             <li>
-              <NavLink to="/" className="w-7 dark:fill-dark-light">
-                <HomeIcon className="w-fit" />
-              </NavLink>
+              <NavigationButton to="/" icon="home" />
             </li>
             <li>
-              <NavLink to="/movies">
-                <FilmIcon className="w-7 dark:fill-dark-light" />
-              </NavLink>
+              <NavigationButton to="/movies" icon="movies" />
             </li>
             <li>
-              <NavLink to="/bookmarks">
-                <HeartIcon className="w-7 dark:fill-dark-light" />
-              </NavLink>
+              <NavigationButton to="/bookmarks" icon="bookmarks" />
             </li>
             <li>
-              <NavLink to="/accountpage">
-                <UserIcon className="w-7 dark:fill-dark-light" />
-              </NavLink>
+              <NavigationButton to="/accountpage" icon="account" />
             </li>
           </ul>
         </nav>
