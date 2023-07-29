@@ -34,19 +34,22 @@ export default function BookmarkedMovies() {
     );
   } else
     return (
-      <div className="grid grid-rows-2 grid-cols-2 gap-5 px-5 py-8">
-        {data.map((movie: Movie, index: number) => {
-          let image = movie.posterPath;
-          return (
-            <Link to={`/movies/${movie.tmdbId}`} key={index}>
-              <img
-                className="rounded-md object-cover h-full w-full"
-                alt={`Poster for the movie ${movie.title}`}
-                src={`https://image.tmdb.org/t/p/original/${image}`}
-              ></img>
-            </Link>
-          );
-        })}
-      </div>
+      <>
+        <div className="fixed top-0 h-8 w-full bg-gradient-to-b from-dark"></div>
+        <div className="grid grid-rows-2 grid-cols-2 gap-5 px-5  pt-8 pb-24">
+          {data.map((movie: Movie, index: number) => {
+            let image = movie.posterPath;
+            return (
+              <Link to={`/movies/${movie.tmdbId}`} key={index}>
+                <img
+                  className="rounded-md object-cover h-full w-full"
+                  alt={`Poster for the movie ${movie.title}`}
+                  src={`https://image.tmdb.org/t/p/original/${image}`}
+                ></img>
+              </Link>
+            );
+          })}
+        </div>
+      </>
     );
 }

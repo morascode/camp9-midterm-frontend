@@ -27,7 +27,7 @@ function Movies() {
     return (
       <>
         <div className="fixed top-0 h-8 w-full bg-gradient-to-b from-dark"></div>
-        <div className="px-5 py-8">
+        <div className="px-5 pt-8 pb-24">
           <InfiniteScroll
             dataLength={data.pages.length}
             next={() => {
