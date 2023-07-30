@@ -9,6 +9,8 @@ import {
 import { Movie } from '../utilities/types';
 import { useNavigate } from 'react-router-dom';
 import { useGenreContext } from '../contexts/GenreContext';
+import UseAnimations from 'react-useanimations';
+import loading from 'react-useanimations/lib/loading';
 
 export default function SearchBar() {
   const navigate = useNavigate();
@@ -18,11 +20,14 @@ export default function SearchBar() {
   const { genreIDs } = useGenreContext();
   const genreIDsString = genreIDs.join('-');
 
-  const { data: moviesByQuery } = useGetMoviesBySearchQuery(query);
+  const { data: moviesByQuery, isLoading: isLoadingQuery } =
+    useGetMoviesBySearchQuery(query);
 
-  const { data: playingNowMovies } = useGetNowPlayingMovies(genreIDsString);
+  const { data: playingNowMovies, isLoading: isLoadingNowPlaying } =
+    useGetNowPlayingMovies(genreIDsString);
 
   const movies = query === '' ? playingNowMovies : moviesByQuery;
+  const isLoading = query === '' ? isLoadingNowPlaying : isLoadingQuery;
 
   function handleSubmitMovie(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter' && selected) {
@@ -45,7 +50,7 @@ export default function SearchBar() {
             </div>
             <Combobox.Input
               onKeyUp={e => handleSubmitMovie(e)}
-              placeholder="Search"
+              placeholder="Search movies"
               className="h-12 w-full rounded-full bg-transparent border-none py-2 pl-3 pr-10 text-sm leading-5 text-white-dimmed focus:ring-0 indent-10"
               displayValue={(movie: Movie) => movie && movie.title}
               onChange={event => setQuery(event.target.value)}
@@ -64,15 +69,27 @@ export default function SearchBar() {
             leaveTo="opacity-0"
             afterLeave={() => setQuery('')}
           >
-            <Combobox.Options className="absolute w-full mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
-              {movies &&
+            <Combobox.Options className="absolute w-full mt-1 max-h-60 overflow-auto rounded-md bg-dark-light text-white-dimmed py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
+              {isLoading ? (
+                <Combobox.Option
+                  value="none"
+                  className="py-2 pl-10 pr-4 flex gap-1 items-end"
+                >
+                  Loading movie suggestions...
+                  <UseAnimations
+                    animation={loading}
+                    strokeColor="rgba(255, 255, 255, 0.4)"
+                    size={20}
+                  />
+                </Combobox.Option>
+              ) : movies && movies.length > 0 ? (
                 movies.map((movie: Movie) => (
                   <Combobox.Option
                     onClick={() => navigate(`/movies/${movie.tmdbId}`)}
                     key={movie.tmdbId}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                        active ? 'bg-yellow text-white' : 'text-gray-900'
+                        active && 'bg-amber-500 text-white'
                       }`
                     }
                     value={movie}
@@ -98,7 +115,12 @@ export default function SearchBar() {
                       </>
                     )}
                   </Combobox.Option>
-                ))}
+                ))
+              ) : (
+                <Combobox.Option value="none" className="py-2 pl-10 pr-4">
+                  No movie suggestions found.
+                </Combobox.Option>
+              )}
             </Combobox.Options>
           </Transition>
         </div>

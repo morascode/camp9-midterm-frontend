@@ -71,7 +71,7 @@ function MovieDetails() {
             <span className="typography-description text-green">
               {data && Math.round(data?.voteAverage * 10) + '%'}
             </span>
-            <span className="typography-description">Score</span>
+            <span className="typography-description">User score</span>
           </div>
         </div>
         <div className="flex mt-2 w-full gap-10 justify-between">
