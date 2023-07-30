@@ -23,9 +23,6 @@ function Home() {
             Let's relax and watch a movie!
           </p>
         </div>
-        <Link to="/accountpage">
-          <img alt="avatar" src={avatar}></img>
-        </Link>
       </div>
       <div className="mt-7">
         <SearchBar />
