@@ -59,16 +59,11 @@ export function useLoginMutation() {
 
 async function logoutUser() {
   // Make a request to logout endpoint
-  try {
-    const { data } = await axios.delete(
-      `${import.meta.env.VITE_SERVER_URL}/api/1.0/user/logout`,
-      { withCredentials: true }
-    );
-    return data;
-  } catch (error) {
-    // Handle error if needed
-    console.log(error);
-  }
+  const { data } = await axios.delete(
+    `${import.meta.env.VITE_SERVER_URL}/api/1.0/user/logout`,
+    { withCredentials: true }
+  );
+  return data;
 }
 
 export function useLogoutMutation() {

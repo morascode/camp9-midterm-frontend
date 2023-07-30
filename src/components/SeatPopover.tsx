@@ -27,7 +27,6 @@ function SeatPopover() {
         bookingResponseObject,
         { withCredentials: true }
       );
-      console.log(data);
       navigate(`/ticket/${data.id}/${id}`);
     } catch (err) {}
   }

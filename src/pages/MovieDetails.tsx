@@ -14,7 +14,6 @@ function MovieDetails() {
   const movieId = parseInt(useParams().id!);
   const { isBookmarked, toggleBookmark } = useBookmarks(movieId);
   const { data, isLoading, isError } = useGetMovieDetails(movieId);
-  console.log(data);
   if (isLoading) {
     return (
       <article className="h-screen w-screen">
@@ -24,14 +23,22 @@ function MovieDetails() {
             animation={loading}
             strokeColor="rgba(255, 255, 255, 0.4)"
           />
-          <h4 className="typography-title text-white-dimmed">Loading.....</h4>
+          <h4 className="typography-title text-white-dimmed">Loading...</h4>
         </div>
       </article>
     );
   }
-  console.log(data);
-  if (isError === true) {
-    throw new Error('no data found');
+  if (isError) {
+    return (
+      <article className="h-screen w-screen">
+        <HeaderPage children="Movie Details" hasHeartButton={false} />
+        <div className="flex gap-2 px-5 pb-8 items-end">
+          <h4 className="typography-title text-white-dimmed">
+            Error while fetching the movie {movieId}.
+          </h4>
+        </div>
+      </article>
+    );
   }
   return (
     <article className="h-screen w-screen flex flex-col pb-6">

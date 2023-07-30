@@ -17,8 +17,6 @@ function Ticket() {
   const { isLoading: isLoadingMovie, data: movieData } = useGetMovieDetails(
     +movieId!
   );
-  console.log(movieData);
-  console.log(data);
   if (isLoading || isLoadingMovie || !movieData || !data) {
     return (
       <div className="flex gap-2 px-5 py-8 items-end">
