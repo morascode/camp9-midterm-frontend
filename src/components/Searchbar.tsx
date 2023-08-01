@@ -11,11 +11,13 @@ import { useNavigate } from 'react-router-dom';
 import { useGenreContext } from '../contexts/GenreContext';
 import UseAnimations from 'react-useanimations';
 import loading from 'react-useanimations/lib/loading';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function SearchBar() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<Movie | null>(null);
   const [query, setQuery] = useState('');
+  const queryClient = useQueryClient();
 
   const { genreIDs } = useGenreContext();
   const genreIDsString = genreIDs.join('-');
@@ -53,7 +55,10 @@ export default function SearchBar() {
               placeholder="Search movies"
               className="h-12 w-full rounded-full bg-transparent border-none py-2 pl-3 pr-10 text-sm leading-5 text-white-dimmed focus:ring-0 indent-10"
               displayValue={(movie: Movie) => movie && movie.title}
-              onChange={event => setQuery(event.target.value)}
+              onChange={event => {
+                queryClient.cancelQueries({ queryKey: ['movies', query] });
+                setQuery(event.target.value);
+              }}
             />
             <Combobox.Button className="absolute inset-y-0 right-2 flex items-center pr-2">
               <ChevronUpDownIcon
@@ -70,19 +75,7 @@ export default function SearchBar() {
             afterLeave={() => setQuery('')}
           >
             <Combobox.Options className="absolute w-full mt-1 max-h-60 overflow-auto rounded-md bg-dark-light text-white-dimmed py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
-              {isLoading ? (
-                <Combobox.Option
-                  value="none"
-                  className="py-2 pl-10 pr-4 flex gap-1 items-end"
-                >
-                  Loading movie suggestions...
-                  <UseAnimations
-                    animation={loading}
-                    strokeColor="rgba(255, 255, 255, 0.4)"
-                    size={20}
-                  />
-                </Combobox.Option>
-              ) : movies && movies.length > 0 ? (
+              {movies && movies.length > 0 ? (
                 movies.map((movie: Movie) => (
                   <Combobox.Option
                     onClick={() => navigate(`/movies/${movie.tmdbId}`)}
@@ -116,6 +109,18 @@ export default function SearchBar() {
                     )}
                   </Combobox.Option>
                 ))
+              ) : isLoading ? (
+                <Combobox.Option
+                  value="none"
+                  className="py-2 pl-10 pr-4 flex gap-1 items-end"
+                >
+                  Loading movie suggestions...
+                  <UseAnimations
+                    animation={loading}
+                    strokeColor="rgba(255, 255, 255, 0.4)"
+                    size={20}
+                  />
+                </Combobox.Option>
               ) : (
                 <Combobox.Option value="none" className="py-2 pl-10 pr-4">
                   No movie suggestions found.
