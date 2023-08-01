@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useBookmarks } from '../hooks/useBookmarks';
+import { useGetBookmarks } from '../hooks/useBookmarks';
 import { Movie } from '../utilities/types';
 import UseAnimations from 'react-useanimations';
 import loading from 'react-useanimations/lib/loading';
 import HeaderPage from '../components/HeaderPage';
 export default function BookmarkedMovies() {
-  const { query } = useBookmarks();
-  const { data, isError, isLoading } = query;
+  const { data, isError, isLoading } = useGetBookmarks();
   if (isError) {
     return (
       <section>

@@ -89,14 +89,15 @@ export function useGetMoviesBySearchQuery(searchQuery: string) {
 async function getMovieDetails(movieId: number) {
   // the axios GET request
   const response = await axios.get<MovieDetailDbResponse>(
-    `${import.meta.env.VITE_SERVER_URL}/api/1.0/movies/${movieId}`
+    `${import.meta.env.VITE_SERVER_URL}/api/1.0/movies/${movieId}`,
+    { withCredentials: true }
   );
   return response.data;
 }
 // useGetMovieDetails hook fetches details for a single movie based on a given movie ID
 export function useGetMovieDetails(movieId: number) {
   const query = useQuery({
-    queryKey: ['movieDetail', movieId],
+    queryKey: ['movieDetails', movieId],
     queryFn: () => getMovieDetails(movieId),
   });
   return query;

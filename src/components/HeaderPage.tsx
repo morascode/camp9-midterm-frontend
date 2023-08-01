@@ -1,5 +1,7 @@
 import { ChevronLeftIcon, HeartIcon } from '@heroicons/react/24/solid';
 import { useNavigate } from 'react-router-dom';
+import UseAnimations from 'react-useanimations';
+import loading from 'react-useanimations/lib/loading';
 
 type Props = {
   children: string;
@@ -7,6 +9,7 @@ type Props = {
   hasBackButton?: boolean;
   hasFade?: boolean;
   isLiked?: boolean;
+  isLoading?: boolean;
   onHeartButtonClick?: () => void;
 };
 
@@ -14,6 +17,7 @@ function HeaderPage({
   hasBackButton = true,
   hasHeartButton = false,
   hasFade = false,
+  isLoading = false,
   ...props
 }: Props) {
   // function used to navigate back to the last page when the arrow back is clicked
@@ -39,21 +43,30 @@ function HeaderPage({
         <h1 className="typography-title dark:text-dark">{props.children}</h1>
         {/* the heart icon, visible if the hasHeartButton={true} prop is passed, can call the callback function on click if one is passed as the onHeartButtonClick prop */}
         <div className="w-5 h-5 no_highlight">
-          {hasHeartButton && (
-            <button
-              onClick={() => {
-                props.onHeartButtonClick && props.onHeartButtonClick();
-              }}
-              className={
-                `w-full transition-colors duration-500 ` +
-                (props.isLiked
-                  ? `stroke-transparent text-red`
-                  : `stroke-red text-transparent`)
-              }
-            >
-              <HeartIcon />
-            </button>
-          )}
+          {hasHeartButton &&
+            (isLoading ? (
+              <button disabled={true} className={`w-full`}>
+                <UseAnimations
+                  animation={loading}
+                  strokeColor="rgba(239, 68, 68, 1.0)"
+                  size={20}
+                />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  props.onHeartButtonClick && props.onHeartButtonClick();
+                }}
+                className={
+                  `w-full transition-colors duration-500 ` +
+                  (props.isLiked
+                    ? `stroke-transparent text-red`
+                    : `stroke-red text-transparent`)
+                }
+              >
+                <HeartIcon />
+              </button>
+            ))}
         </div>
       </div>
       {hasFade && <div className="h-4 w-full bg-gradient-to-b from-dark"></div>}
