@@ -1,8 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import type { MovieDbResponse, Movie } from '../utilities/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { MovieDbResponse } from '../utilities/types';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { string } from 'zod';
 
 async function getBookmarkedMovies() {
   const response = await axios.get<MovieDbResponse>(
@@ -17,37 +15,24 @@ async function patchBookmark(movieId: number, createBookmark: boolean) {
     { createBookmark: createBookmark },
     { withCredentials: true }
   );
-  return response.data;
+  return response;
 }
-// the hook
-export function useBookmarks(id?: number) {
+export function useGetBookmarks() {
   const query = useQuery({
     queryKey: ['movies', 'bookmarked'],
     queryFn: getBookmarkedMovies,
   });
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
-  useEffect(() => {
-    if (id && query.data) {
-      if (checkIsBookmarked()) {
-        !isBookmarked && setIsBookmarked(true);
-      } else {
-        isBookmarked && setIsBookmarked(false);
-      }
-    }
-  }, [query]);
-  function checkIsBookmarked() {
-    return Boolean(
-      query.data?.find((movie: Movie) => {
-        return movie.tmdbId === id;
-      })
-    );
-  }
-  async function toggleBookmark() {
-    if (id) {
-      await patchBookmark(id, !checkIsBookmarked());
-      query.refetch();
-    }
-  }
-  return { query, isBookmarked, toggleBookmark };
+  return query;
+}
+export function usePatchBookmark(movieId: number) {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (isBookmarked: boolean) =>
+      patchBookmark(movieId, !isBookmarked),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['movies', 'bookmarked']);
+      queryClient.invalidateQueries(['movieDetails', movieId]);
+    },
+  });
+  return mutation;
 }

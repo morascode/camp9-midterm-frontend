@@ -38,6 +38,7 @@ export type MovieDetailDbResponse = {
   overview: string;
   id: number;
   tmdbId: string;
+  bookmarkedBy: [] | [{ id: string }];
   credits: {
     cast: { set: TMDBCast[] };
     crew: { set: TMDBCrew[] };
